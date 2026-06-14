@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tarub Bahar — Media & Communication</title>
+<meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+<meta http-equiv="X-Frame-Options" content="DENY"/>
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; frame-src https://drive.google.com https://docs.google.com https://accounts.google.com https://*.google.com; img-src 'self' data: https://drive.google.com https://lh3.googleusercontent.com https://*.googleusercontent.com; connect-src 'none';"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+
+:root{
+  --void:#07090e;--deep:#0b1219;--surface:#0f1a28;
+  --glass:rgba(255,255,255,.04);--glass-mid:rgba(255,255,255,.07);--glass-hi:rgba(255,255,255,.12);
+  --border:rgba(255,255,255,.08);--border-hi:rgba(255,255,255,.16);
+  --teal:#00c2a8;--teal-lo:rgba(0,194,168,.10);--teal-hi:rgba(0,194,168,.22);
+  --rose:#e8907a;--rose-lo:rgba(232,144,122,.10);
+  --gold:#d4af6a;--gold-lo:rgba(212,175,106,.10);
+  --sky:#5eb8ff;--sky-lo:rgba(94,184,255,.10);
+  --t1:#edf2f7;--t2:#8fa8c2;--t3:#3d5468;
+  --f-serif:'Cormorant Garamond',Georgia,serif;
+  --f-sans:'Inter',sans-serif;
+  --f-mono:'JetBrains Mono',monospace;
+  --r:14px;--r-lg:22px;--r-xl:32px;
+}
+body{font-family:var(--f-sans);background:var(--void);color:var(--t1);overflow-x:hidden;text-rendering:optimizeLegibility}
+body::after{
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  opacity:.55;
+}
+
+/* ORBS */
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;opacity:.9;contain:layout paint style;will-change:transform;transform:translate3d(0,0,0)}
+.orb-a{width:620px;height:620px;background:radial-gradient(circle,rgba(0,194,168,.16) 0%,rgba(0,194,168,.06) 38%,transparent 70%);top:-200px;right:-150px;animation:oA 26s ease-in-out infinite alternate}
+.orb-b{width:500px;height:500px;background:radial-gradient(circle,rgba(232,144,122,.13) 0%,rgba(232,144,122,.05) 38%,transparent 70%);bottom:-170px;left:-140px;animation:oB 32s ease-in-out infinite alternate}
+.orb-c{width:360px;height:360px;background:radial-gradient(circle,rgba(212,175,106,.1) 0%,rgba(212,175,106,.04) 40%,transparent 72%);top:45%;left:40%;animation:oC 38s ease-in-out infinite alternate}
+@keyframes oA{to{transform:translate3d(-80px,115px,0)}}
+@keyframes oB{to{transform:translate3d(95px,-80px,0)}}
+@keyframes oC{to{transform:translate3d(-60px,60px,0)}}
+
+/* CURSOR — desktop only */
+.cdot{position:fixed;left:0;top:0;width:7px;height:7px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate3d(-100px,-100px,0) translate(-50%,-50%);box-shadow:0 0 10px var(--teal),0 0 20px rgba(0,194,168,.35);display:none;opacity:0;will-change:transform}
+.cring{position:fixed;left:0;top:0;width:30px;height:30px;border:1.5px solid rgba(0,194,168,.48);border-radius:50%;pointer-events:none;z-index:9998;transform:translate3d(-100px,-100px,0) translate(-50%,-50%);transition:width .22s cubic-bezier(.22,1,.36,1),height .22s cubic-bezier(.22,1,.36,1),opacity .22s;display:none;opacity:0;will-change:transform}
+/* shown only on pointer-fine (real mouse) devices */
+@media(pointer:fine){
+  .cdot,.cring{display:block}
+  body{cursor:none}
+}
+
+/* TAP RIPPLE — touch/mobile only */
+.tap-ring{
+  position:fixed;
+  width:44px;height:44px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%) scale(0);
+  border:2px solid var(--teal);
+  box-shadow:0 0 18px var(--teal),inset 0 0 8px rgba(0,194,168,.3);
+  opacity:0;
+  animation:none;
+}
+.tap-ring.pop{
+  animation:tapPop .55s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes tapPop{
+  0%{transform:translate(-50%,-50%) scale(0);opacity:.9}
+  60%{transform:translate(-50%,-50%) scale(1.15);opacity:.6}
+  100%{transform:translate(-50%,-50%) scale(1.6);opacity:0}
+}
+/* shown only on coarse (touch) devices */
+@media(pointer:coarse){
+  body{cursor:auto}
+  .cdot,.cring{display:none!important}
+}
+
+/* SNOWFLAKES — cinematic, behind content */
+#snow-canvas{
+  position:fixed;inset:0;
+  z-index:0; /* behind everything — glass-window effect */
+  width:100%;height:100%;
+  pointer-events:none;
+  opacity:.72;
+  contain:strict;
+}
+#snow-canvas.interactive{pointer-events:none} /* never blocks content clicks */
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;justify-content:space-between;align-items:center;padding:1rem 4rem;background:rgba(7,9,14,.72);backdrop-filter:blur(16px) saturate(1.35);-webkit-backdrop-filter:blur(16px) saturate(1.35);border-bottom:1px solid var(--border);transition:padding .25s ease,background .25s ease;transform:translateZ(0)}
+nav.nav-compact{padding:.6rem 4rem;background:rgba(7,9,14,.82)}
+.nav-logo{font-family:var(--f-serif);font-weight:600;font-size:1.15rem;color:var(--t1);text-decoration:none;letter-spacing:.04em}
+.nav-logo .acc{color:var(--teal)}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--t2);text-decoration:none;transition:color .2s;font-weight:500}
+.nav-links a:hover{color:var(--teal)}
+.nav-pill{padding:.42rem 1.1rem;border:1px solid var(--teal);color:var(--teal)!important;border-radius:100px;font-size:.66rem!important;transition:background .2s,color .2s!important}
+.nav-pill:hover{background:var(--teal)!important;color:var(--void)!important}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem}
+.nav-ham span{width:22px;height:1.5px;background:var(--t2);display:block;transition:all .3s}
+
+/* SECTION */
+section{padding:7rem 5rem;position:relative;z-index:2}
+section:not(#hero){content-visibility:auto;contain-intrinsic-size:auto 900px}
+.eyebrow{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem}
+.eyebrow::before{content:'';width:1.8rem;height:1px;background:var(--teal)}
+.section-title{font-family:var(--f-serif);font-size:clamp(2.2rem,4vw,3.5rem);font-weight:600;line-height:1.05;color:var(--t1)}
+.section-title em{font-style:italic;background:linear-gradient(120deg,var(--teal),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* GLASS */
+.glass{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--r-lg)}
+.glass-hi{background:var(--glass-mid);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--border-hi);border-radius:var(--r-xl)}
+
+/* ═══════════ HERO ═══════════ */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 5rem 5rem 6rem;overflow:hidden}
+.hero-rail{position:absolute;left:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:.8rem;opacity:.28}
+.hero-rail .sw{font-family:var(--f-mono);font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;color:var(--t2);writing-mode:vertical-rl}
+.sline{width:1px;height:44px;background:linear-gradient(to bottom,var(--teal),transparent);animation:sL 2.2s ease infinite}
+@keyframes sL{0%,100%{opacity:.3;height:44px}50%{opacity:1;height:58px}}
+.hero-grid{max-width:1180px;display:grid;grid-template-columns:1fr 340px;gap:5rem;align-items:center}
+.hero-tag{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:1.4rem;opacity:0;animation:fU .7s .15s forwards}
+.hero-h1{font-family:var(--f-serif);font-size:clamp(4rem,8vw,8.5rem);font-weight:600;line-height:.9;letter-spacing:-.02em;opacity:0;animation:fU .8s .3s forwards}
+.hero-h1 .grad{display:block;font-style:italic;background:linear-gradient(130deg,var(--teal) 0%,var(--sky) 48%,var(--rose) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-body{margin-top:1.8rem;font-size:1rem;line-height:1.9;color:var(--t2);font-weight:300;max-width:510px;opacity:0;animation:fU .8s .5s forwards}
+.hero-body strong{color:var(--t1);font-weight:500}
+.hero-btns{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;opacity:0;animation:fU .8s .7s forwards}
+.btn-fill{padding:.85rem 2rem;background:linear-gradient(135deg,var(--teal),#009e87);color:var(--void);font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:100px;box-shadow:0 0 32px rgba(0,194,168,.26);transition:transform .2s,box-shadow .2s}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 0 55px rgba(0,194,168,.44)}
+.btn-out{padding:.85rem 2rem;border:1px solid var(--border-hi);color:var(--t1);font-size:.74rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:border-color .2s,color .2s,background .2s}
+.btn-out:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-lo)}
+.hero-card{padding:1.8rem;opacity:0;animation:fU .9s .4s forwards;position:relative}
+.hero-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,194,168,.07),rgba(232,144,122,.04));border-radius:inherit}
+.hc-top{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:1.3rem}
+.hc-row{display:flex;align-items:baseline;gap:.6rem;padding:.85rem 0;border-bottom:1px solid var(--border)}
+.hc-row:last-child{border-bottom:none;padding-bottom:0}
+.hcn{font-family:var(--f-serif);font-size:2.5rem;font-weight:600;line-height:1;color:var(--t1)}
+.hcu{font-family:var(--f-mono);font-size:.65rem;color:var(--teal);align-self:flex-end;margin-bottom:.12rem}
+.hcd{display:flex;flex-direction:column;gap:.05rem;margin-left:auto;text-align:right}
+.hcd strong{font-size:.78rem;font-weight:500;color:var(--t1)}
+.hcd span{font-size:.68rem;color:var(--t3)}
+@keyframes fU{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* MARQUEE */
+.marquee-wrap{position:relative;z-index:2;overflow:hidden;padding:.95rem 0;background:linear-gradient(90deg,var(--teal-lo),rgba(0,194,168,.04),var(--teal-lo));border-top:1px solid rgba(0,194,168,.11);border-bottom:1px solid rgba(0,194,168,.11)}
+.marquee-belt{display:flex;gap:3rem;white-space:nowrap;animation:mq 26s linear infinite}
+.marquee-belt:hover{animation-play-state:paused}
+.mqi{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);flex-shrink:0;display:flex;align-items:center;gap:1.2rem}
+.mqi::after{content:'·';color:var(--teal);font-size:.9rem}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════ ABOUT ═══════════ */
+#about{background:linear-gradient(180deg,rgba(7,9,14,.94),rgba(11,18,25,.94))}
+.about-grid{display:grid;grid-template-columns:1fr 380px;gap:5rem;align-items:start;margin-top:3.5rem}
+.body-copy p{font-size:.97rem;line-height:1.95;color:var(--t2);font-weight:300;margin-bottom:1.4rem}
+.body-copy p strong{color:var(--t1);font-weight:500}
+.pull-q{margin:2.5rem 0;padding:1.7rem 2rem 1.7rem 2.4rem;border-left:2px solid var(--teal);background:var(--teal-lo);border-radius:0 var(--r) var(--r) 0;position:relative}
+.pull-q::before{content:'\201C';font-family:var(--f-serif);font-size:5rem;line-height:.75;color:var(--teal);opacity:.22;position:absolute;top:.5rem;left:.4rem}
+.pull-q blockquote{font-family:var(--f-serif);font-size:1.28rem;font-style:italic;line-height:1.6;color:var(--t1);padding-left:.7rem}
+.pull-q cite{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);padding-left:.7rem;margin-top:.55rem;display:block;font-style:normal}
+.aside-stack{display:flex;flex-direction:column;gap:1.2rem}
+.info-pill{padding:1.3rem 1.5rem;border-radius:var(--r);border:1px solid var(--border);background:var(--glass);transition:border-color .2s,transform .2s}
+.info-pill:hover{border-color:var(--border-hi);transform:translateY(-2px)}
+.ipl{font-family:var(--f-mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.45rem}
+.ipv{font-size:.84rem;color:var(--t2);line-height:1.6}
+.ipv a{color:var(--teal);text-decoration:none}
+.ipv a:hover{text-decoration:underline}
+.ipv strong{color:var(--t1);font-weight:500}
+.lang-row{margin-bottom:.85rem}
+.lang-head{display:flex;justify-content:space-between;font-size:.74rem;margin-bottom:.35rem}
+.ln{color:var(--t1);font-weight:500}
+.lv{font-family:var(--f-mono);font-size:.58rem;color:var(--teal)}
+.lang-track{height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.lang-fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--sky));border-radius:2px;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+
+/* ═══════════ EDUCATION ═══════════ */
+#education{background:rgba(11,18,25,.94)}
+.edu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;margin-top:3.5rem}
+.edu-card{padding:1.7rem;border-radius:var(--r);border:1px solid var(--border);background:var(--glass);position:relative;overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s}
+.edu-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,194,168,.05),transparent);opacity:0;transition:opacity .3s;border-radius:inherit}
+.edu-card:hover{border-color:rgba(0,194,168,.35);transform:translateY(-5px);box-shadow:0 18px 50px rgba(0,0,0,.32),0 0 32px rgba(0,194,168,.05)}
+.edu-card:hover::after{opacity:1}
+.edu-yr{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;color:var(--teal);margin-bottom:.65rem;text-transform:uppercase}
+.edu-deg{font-family:var(--f-serif);font-size:1.08rem;font-weight:600;color:var(--t1);margin-bottom:.3rem;line-height:1.3}
+.edu-inst{font-size:.73rem;color:var(--t2);margin-bottom:.85rem;line-height:1.5}
+.edu-score{display:inline-block;padding:.26rem .7rem;background:linear-gradient(135deg,var(--teal),#009e87);color:var(--void);font-family:var(--f-mono);font-size:.62rem;font-weight:600;border-radius:100px;letter-spacing:.07em}
+.edu-sem{margin-top:.65rem;display:flex;flex-direction:column;gap:.22rem}
+.edu-sem-row{font-size:.68rem;color:var(--t3);display:flex;justify-content:space-between;line-height:1.5}
+.edu-sem-row span:last-child{color:var(--teal);font-family:var(--f-mono)}
+
+/* ═══════════ SKILLS ═══════════ */
+#skills{background:rgba(7,9,14,.94)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:3.5rem}
+.skill-box{padding:1.9rem;border-radius:var(--r);border:1px solid var(--border);background:var(--glass);transition:border-color .2s}
+.skill-box:hover{border-color:rgba(0,194,168,.25)}
+.skill-box-title{font-family:var(--f-serif);font-size:1.08rem;font-weight:600;color:var(--t1);margin-bottom:1.1rem}
+.tags{display:flex;flex-wrap:wrap;gap:.42rem}
+.tag{padding:.3rem .8rem;font-size:.68rem;letter-spacing:.04em;border:1px solid var(--border);color:var(--t2);border-radius:100px;transition:all .2s}
+.tag:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-lo)}
+
+/* ═══════════ EXPERIENCE — redesigned ═══════════ */
+#experience{background:rgba(11,18,25,.94)}
+.exp-container{margin-top:3.5rem;display:flex;flex-direction:column;gap:0}
+
+/* connector line */
+.exp-item{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:3rem;
+  position:relative;
+  padding:3rem 0;
+  border-bottom:1px solid var(--border);
+}
+.exp-item:first-child{padding-top:0}
+.exp-item:last-child{border-bottom:none;padding-bottom:0}
+
+/* vertical accent line */
+.exp-item::before{
+  content:'';
+  position:absolute;
+  left:199px;top:0;bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom,transparent,var(--teal-hi),transparent);
+}
+
+.exp-meta{}
+.exp-dot-wrap{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+.exp-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);flex-shrink:0}
+.exp-when{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.exp-org-name{font-size:.8rem;color:var(--t2);line-height:1.5;margin-top:.2rem;padding-left:1.5rem}
+.exp-location{font-size:.72rem;color:var(--t3);padding-left:1.5rem;margin-top:.1rem}
+
+.exp-content{padding-left:2.5rem}
+.exp-role{font-family:var(--f-serif);font-size:1.55rem;font-weight:600;color:var(--t1);line-height:1.15;margin-bottom:.9rem}
+.exp-summary{font-size:.88rem;line-height:1.85;color:var(--t2);font-weight:300;margin-bottom:1.1rem;max-width:580px}
+.exp-pts{display:grid;grid-template-columns:1fr 1fr;gap:.35rem .8rem}
+.exp-pt{font-size:.76rem;color:var(--t2);padding-left:1rem;position:relative;line-height:1.65}
+.exp-pt::before{content:'';position:absolute;left:0;top:.58em;width:4px;height:4px;border-radius:50%;background:var(--teal)}
+.exp-pts-single{display:flex;flex-direction:column;gap:.35rem}
+
+/* ═══════════ PORTFOLIO ═══════════ */
+#work{background:rgba(7,9,14,.94)}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.5rem}
+.wcard{border-radius:var(--r-lg);border:1px solid var(--border);background:var(--glass);overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s,box-shadow .3s}
+.wcard:hover{border-color:rgba(0,194,168,.3);transform:translateY(-6px);box-shadow:0 26px 65px rgba(0,0,0,.42),0 0 40px rgba(0,194,168,.05)}
+.wcard.playing{border-color:var(--teal);transform:translateY(-4px);box-shadow:0 20px 55px rgba(0,0,0,.5),0 0 35px rgba(0,194,168,.18)}
+
+/* Thumbnail + video area */
+.wthumb{
+  position:relative;overflow:hidden;background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  aspect-ratio:16/9;
+  min-height:148px;
+}
+.wcard.playing .wthumb::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:54px;z-index:5;
+  background:linear-gradient(to top,rgba(7,9,14,.96),rgba(7,9,14,.72),transparent);
+  pointer-events:none;
+}
+/* When card is playing a vertical video, expand to portrait aspect */
+.wcard.playing .wthumb{
+  aspect-ratio:16/9;
+  min-height:148px;
+}
+.wthumb svg{position:absolute;inset:0;width:100%;height:100%;transition:opacity .3s}
+.wcard.playing .wthumb svg{opacity:0;pointer-events:none}
+.wthumb-label{position:absolute;bottom:0;left:0;right:0;padding:.75rem 1.1rem;background:linear-gradient(to top,rgba(7,9,14,.9),transparent);font-family:var(--f-serif);font-size:.92rem;font-style:italic;color:var(--t1);line-height:1.3;transition:opacity .3s;z-index:2}
+.wcard.playing .wthumb-label{opacity:1;pointer-events:none;z-index:6;background:linear-gradient(to top,rgba(7,9,14,.94),transparent)}
+
+/* Embedded iframe — portrait, fills card when playing */
+.wthumb-iframe{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  border:none;display:none;
+  z-index:3;
+  background:#000;
+}
+.wcard.playing .wthumb-iframe{display:block}
+
+/* Play/Pause overlay button on thumbnail */
+.wthumb-play{
+  position:absolute;inset:0;z-index:4;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  background:transparent;
+  border:none;
+  transition:background .2s;
+}
+.wthumb-play:hover{background:rgba(0,0,0,.18)}
+.wplay-circle{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(0,0,0,.52);
+  border:2px solid rgba(255,255,255,.55);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,border-color .2s,background .2s;
+  pointer-events:none;
+}
+.wthumb-play:hover .wplay-circle{
+  transform:scale(1.12);
+  border-color:var(--teal);
+  background:rgba(0,194,168,.22);
+}
+.wplay-circle svg{fill:#fff;margin-left:3px;transition:fill .2s}
+.wthumb-play:hover .wplay-circle svg{fill:var(--teal)}
+/* When playing show pause icon */
+.wcard.playing .wthumb-play{display:none}
+
+/* Fullscreen button — shown only when playing */
+.wfullscreen-btn{
+  position:absolute;top:.7rem;right:.7rem;z-index:7;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.3);
+  color:#fff;cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+.wcard.playing .wfullscreen-btn{display:none}
+.wfullscreen-btn:hover{background:rgba(0,194,168,.35);border-color:var(--teal)}
+
+.wtype{font-family:var(--f-mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);padding:1.1rem 1.4rem .3rem}
+.wtitle{font-family:var(--f-serif);font-size:1.18rem;font-weight:600;color:var(--t1);padding:0 1.4rem .45rem;line-height:1.3}
+.wdesc{font-size:.76rem;line-height:1.75;color:var(--t2);padding:0 1.4rem;flex:1}
+.wfoot{padding:1rem 1.4rem;border-top:1px solid var(--border);margin-top:1rem;display:flex;align-items:center;justify-content:space-between}
+.wlink{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);text-decoration:none;transition:letter-spacing .2s}
+.wlink:hover{letter-spacing:.2em}
+/* Watch button — kept for visual consistency, no redirect */
+.play-btn{
+  padding:.36rem .92rem;
+  background:var(--teal-lo);border:1px solid rgba(0,194,168,.28);
+  color:var(--teal);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--f-mono);border-radius:100px;cursor:pointer;
+  transition:background .2s,color .2s;white-space:nowrap;
+}
+.play-btn:hover{background:var(--teal);color:var(--void)}
+
+/* ═══════════ FILMSAAZ ═══════════ */
+#filmsaaz{background:rgba(11,18,25,.94);overflow:hidden}
+.fsz-header-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:3.5rem;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+.fsz-header-left{}
+.fsz-about-short{font-size:.88rem;line-height:1.8;color:var(--t2);font-weight:300;max-width:560px;margin-top:.8rem}
+.fsz-about-short strong{color:var(--t1);font-weight:500}
+.fsz-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.42rem 1rem;background:var(--rose-lo);border:1px solid rgba(232,144,122,.28);border-radius:100px;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem}
+.fsz-hint-pill{display:flex;align-items:center;gap:.5rem;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--t3)}
+.fsz-hint-pill .dot-live{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);animation:livePulse 1.8s ease infinite;flex-shrink:0}
+@keyframes livePulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+/* ── YouTube-style horizontal card strip ── */
+.fsz-scroll-outer{
+  position:relative;
+  /* fade edges */
+}
+.fsz-scroll-outer::before,
+.fsz-scroll-outer::after{
+  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:10;pointer-events:none;
+}
+.fsz-scroll-outer::before{left:0;background:linear-gradient(to right,var(--deep),transparent)}
+.fsz-scroll-outer::after{right:0;background:linear-gradient(to left,var(--deep),transparent)}
+
+.fsz-scroll-track{
+  display:flex;
+  gap:1.2rem;
+  overflow-x:auto;
+  overflow-y:visible;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding:1rem 80px 1.5rem;
+  cursor:grab;
+}
+.fsz-scroll-track::-webkit-scrollbar{display:none}
+.fsz-scroll-track.dragging{cursor:grabbing;scroll-snap-type:none}
+.fsz-scroll-track.dragging .fsz-vcard{pointer-events:none}
+
+/* Vertical card — 9:16 aspect like a phone screen */
+.fsz-vcard{
+  flex:0 0 200px;
+  height:355px;
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  position:relative;
+  border:2px solid var(--border);
+  background:
+    radial-gradient(circle at 50% 18%,rgba(0,194,168,.16),transparent 36%),
+    linear-gradient(160deg,#111a27 0%,#0b111a 48%,#07090e 100%);
+  scroll-snap-align:center;
+  transition:border-color .3s,box-shadow .3s,transform .3s;
+  cursor:pointer;
+  flex-shrink:0;
+  contain:layout paint style;
+  transform:translateZ(0);
+}
+.fsz-vcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.07),transparent 38%),radial-gradient(circle at 50% 58%,rgba(94,184,255,.12),transparent 48%);opacity:.85;pointer-events:none;z-index:0}
+.fsz-vcard.active-card::before{opacity:0}
+.fsz-vcard.active-card::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:72px;z-index:3;
+  background:linear-gradient(to top,rgba(7,9,14,.98),rgba(7,9,14,.78),transparent);
+  pointer-events:none;
+}
+.fsz-vcard:hover{
+  border-color:var(--teal);
+  box-shadow:0 10px 34px rgba(0,0,0,.42),0 0 18px rgba(0,194,168,.12);
+  transform:translateY(-4px) scale(1.025);
+  z-index:2;
+}
+.fsz-vcard.active-card{
+  border-color:var(--teal);
+  box-shadow:0 14px 44px rgba(0,0,0,.5),0 0 24px rgba(0,194,168,.18);
+  transform:translateY(-6px) scale(1.035);
+  z-index:3;
+}
+
+/* iframe — force portrait/vertical playback
+   Google Drive embeds a 16:9 player by default.
+   We make the iframe wider than its container and centre it
+   so the video fills the 9:16 frame vertically. */
+.fsz-vcard iframe{
+  position:absolute;
+  /* 16:9 player inside a 9:16 card:
+     width must be (16/9)*(9/16) = 1× height
+     card is 200w×355h. A 16:9 player matching 355px height = 631px wide.
+     We shift left to centre: (200 - 631)/2 = -215px */
+  width:316%;
+  height:100%;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  border:none;
+  pointer-events:none;
+  display:block;
+  z-index:1;
+  background:#000;
+}
+/* When active/playing, allow interaction */
+.fsz-vcard.active-card iframe{
+  pointer-events:auto;
+}
+
+/* Play overlay — shown on inactive cards */
+.fsz-vcard-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(7,9,14,.92) 0%,rgba(7,9,14,.2) 50%,transparent 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:.9rem 1rem;
+  pointer-events:none;
+  transition:opacity .3s;
+  z-index:4;
+}
+.fsz-vcard.active-card .fsz-vcard-overlay{
+  background:linear-gradient(to top,rgba(7,9,14,.7) 0%,transparent 40%);
+  opacity:.9;
+}
+.fsz-vcard-num{font-family:var(--f-mono);font-size:.5rem;letter-spacing:.2em;color:var(--teal);margin-bottom:.25rem}
+.fsz-vcard-title{font-size:.78rem;font-weight:600;color:var(--t1);line-height:1.3;margin-bottom:.2rem}
+.fsz-vcard-sub{font-family:var(--f-mono);font-size:.55rem;color:var(--t3);letter-spacing:.08em}
+
+/* Big play button on non-active cards */
+.fsz-vcard-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(0,0,0,.5);
+  border:2px solid rgba(255,255,255,.35);
+  color:#fff;
+  cursor:pointer;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .25s,transform .25s,border-color .25s,background .25s;
+  pointer-events:auto;
+  z-index:5;
+}
+.fsz-vcard:not(.active-card):hover .fsz-vcard-play{
+  background:rgba(0,194,168,.25);
+  border-color:var(--teal);
+  transform:translate(-50%,-50%) scale(1.12);
+}
+.fsz-vcard.active-card .fsz-vcard-play{opacity:0;pointer-events:none}
+.fsz-vcard-play svg{fill:#fff;margin-left:3px}
+
+/* Now playing bar */
+.fsz-now-bar{
+  display:flex;align-items:center;gap:.7rem;
+  margin-top:1rem;
+  font-family:var(--f-mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--t3);min-height:1.4rem;
+}
+.fsz-now-bar .dot-live{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);animation:livePulse 1.8s ease infinite;flex-shrink:0}
+.fsz-now-bar .now-title{color:var(--t2)}
+
+/* ═══════════ CERTIFICATIONS ═══════════ */
+#certifications{background:rgba(7,9,14,.94)}
+.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3.5rem}
+.cert-card{padding:1.6rem;border-radius:var(--r);border:1px solid var(--border);background:var(--glass);display:flex;flex-direction:column;gap:.5rem;transition:border-color .2s,transform .2s}
+.cert-card:hover{border-color:rgba(212,175,106,.32);transform:translateY(-3px)}
+.cert-badge{display:inline-block;padding:.26rem .7rem;border:1px solid rgba(212,175,106,.32);color:var(--gold);font-family:var(--f-mono);font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;border-radius:100px;align-self:flex-start}
+.cert-name{font-family:var(--f-serif);font-size:.98rem;font-weight:600;color:var(--t1);line-height:1.3}
+.cert-detail{font-size:.74rem;color:var(--t2);line-height:1.6}
+
+/* ═══════════ SSB ═══════════ */
+#extra{background:rgba(11,18,25,.94)}
+.ssb-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border);margin-top:3rem}
+.ssb-l{padding:3.5rem;background:linear-gradient(135deg,rgba(0,194,168,.1),rgba(94,184,255,.05));border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center}
+.ssb-big{font-family:var(--f-serif);font-size:7rem;font-weight:600;line-height:1;background:linear-gradient(130deg,var(--teal),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ssb-lbl{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-top:.2rem}
+.ssb-stats{display:flex;gap:2.5rem;margin-top:2.5rem}
+.ssb-s{display:flex;flex-direction:column;gap:.22rem}
+.ssb-sn{font-family:var(--f-serif);font-size:2.2rem;font-weight:600;color:var(--t1);line-height:1}
+.ssb-sl{font-size:.68rem;color:var(--t3)}
+.ssb-r{padding:3.5rem}
+.ssb-r h3{font-family:var(--f-serif);font-size:1.8rem;font-weight:600;color:var(--t1);margin-bottom:1.3rem;line-height:1.2}
+.ssb-r p{font-size:.88rem;line-height:1.9;color:var(--t2);font-weight:300}
+.ssb-r p+p{margin-top:1rem}
+
+/* ═══════════ CONTACT ═══════════ */
+#contact{background:linear-gradient(180deg,rgba(11,18,25,.94),rgba(7,9,14,.94));text-align:center}
+.contact-h{font-family:var(--f-serif);font-size:clamp(2.5rem,5.5vw,5.5rem);font-weight:600;line-height:.95;margin-top:1.8rem}
+.contact-h .grd{background:linear-gradient(130deg,var(--teal),var(--sky),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.contact-sub{font-size:.96rem;color:var(--t2);margin-top:1.5rem;max-width:430px;margin-left:auto;margin-right:auto;line-height:1.8;font-weight:300}
+.contact-row{display:flex;justify-content:center;gap:1rem;margin-top:3rem;flex-wrap:wrap}
+.ccard{padding:1rem 1.6rem;border:1px solid var(--border);border-radius:var(--r);background:var(--glass);color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:.6rem;font-size:.78rem;transition:all .25s}
+.ccard:hover{border-color:rgba(0,194,168,.35);color:var(--teal);background:var(--teal-lo);transform:translateY(-3px)}
+.ccard svg{color:var(--teal);flex-shrink:0}
+
+/* FOOTER */
+footer{padding:1.7rem 5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);position:relative;z-index:2;background:rgba(7,9,14,.94)}
+.ft{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.12em;color:var(--t3)}
+.ft .dot{color:var(--teal)}
+
+/* ═══════════ VIDEO MODAL ═══════════ */
+#vModal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;background:rgba(7,9,14,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#vModal.open{display:flex}
+.vm-box{position:relative;width:min(420px,92vw);border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border-hi);box-shadow:0 40px 120px rgba(0,0,0,.8),0 0 80px rgba(0,194,168,.06)}
+.vm-box iframe{width:100%;display:block;border:none}
+.vm-close{position:absolute;top:.9rem;right:.9rem;z-index:10;width:34px;height:34px;border-radius:50%;background:rgba(7,9,14,.78);border:1px solid var(--border-hi);color:var(--t1);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+.vm-close:hover{background:var(--rose);color:var(--void)}
+.vm-bar{padding:.85rem 1.3rem;background:var(--deep);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.vm-bar-t{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t2)}
+.vm-bar-t span{color:var(--teal)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .65s ease,transform .65s ease}
+.rv.vis{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-14px);transition:opacity .65s ease,transform .65s ease}
+.rv-l.vis{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(14px);transition:opacity .65s ease,transform .65s ease}
+.rv-r.vis{opacity:1;transform:none}
+
+/* MOBILE */
+@media(max-width:960px){
+  nav{padding:.8rem 1.5rem}
+  .nav-links{display:none}
+  .nav-ham{display:flex}
+  section{padding:5rem 1.5rem}
+  #hero{padding:7rem 1.5rem 4rem 1.5rem}
+  .hero-rail{display:none}
+  .hero-grid{grid-template-columns:1fr;gap:2.5rem}
+  .hero-card{display:none}
+  .hero-h1{font-size:clamp(3.2rem,13vw,5rem)}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .edu-grid{grid-template-columns:1fr 1fr;gap:1rem}
+  .skills-grid{grid-template-columns:1fr}
+  .work-grid{grid-template-columns:1fr;gap:1.1rem}
+  .fsz-vcard{flex:0 0 150px;height:267px}
+  .fsz-header-row{flex-direction:column;align-items:flex-start}
+  .exp-item{grid-template-columns:1fr;gap:1rem}
+  .exp-item::before{display:none}
+  .exp-content{padding-left:0}
+  .exp-pts{grid-template-columns:1fr}
+  .cert-grid{grid-template-columns:1fr}
+  .ssb-wrap{grid-template-columns:1fr}
+  .ssb-l{padding:2.5rem 1.8rem;border-right:none;border-bottom:1px solid var(--border)}
+  .ssb-r{padding:2.5rem 1.8rem}
+  .ssb-big{font-size:5rem}
+  .contact-row{flex-direction:column;align-items:center}
+  footer{flex-direction:column;gap:.7rem;text-align:center;padding:1.5rem}
+  .fsz-vcard{flex:0 0 120px;height:213px}
+  nav.nav-compact{padding:.65rem 1.5rem}
+  .orb{display:none}
+  #snow-canvas{opacity:.38}
+  .glass,.glass-hi{backdrop-filter:none;-webkit-backdrop-filter:none}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .orb,#snow-canvas,.marquee-belt{animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="orb orb-a"></div>
+<div class="orb orb-b"></div>
+<div class="orb orb-c"></div>
+<canvas id="snow-canvas" aria-hidden="true"></canvas>
+<div class="tap-ring" id="tapRing"></div>
+<div class="cdot" id="cDot"></div>
+<div class="cring" id="cRing"></div>
+
+<!-- VIDEO MODAL -->
+<div id="vModal" role="dialog" aria-modal="true" aria-label="Video player">
+  <div class="vm-box">
+    <button class="vm-close" id="vmClose" aria-label="Close video">&times;</button>
+    <div id="vmContent"></div>
+    <div class="vm-bar">
+      <span class="vm-bar-t"><span id="vmTitle">Film</span></span>
+      <span class="vm-bar-t">Tarub Bahar</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo">Tarub<span class="acc">.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#filmsaaz">Filmsaaz</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/1DHupALv8HRMO_EKw3LC017lHi8r0ExCk/view" target="_blank" rel="noopener noreferrer" class="nav-pill">CV</a></li>
+  </ul>
+  <div class="nav-ham" id="navHam" role="button" tabindex="0" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-rail" aria-hidden="true">
+    <span class="sw">scroll</span>
+    <div class="sline"></div>
+  </div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Mass Communication &nbsp;·&nbsp; AMU Aligarh &nbsp;·&nbsp; Class of 2026</div>
+      <h1 class="hero-h1">Tarub<span class="grad">Bahar</span></h1>
+      <p class="hero-body">A storyteller who moves easily between the camera, the keyboard, and the boardroom. Trained in <strong>documentary filmmaking, corporate communication,</strong> and <strong>content strategy</strong> — with a science background that makes complexity feel simple.</p>
+      <div class="hero-btns">
+        <a href="#work" class="btn-fill">See My Work</a>
+        <a href="#about" class="btn-out">My Story</a>
+      </div>
+    </div>
+    <div class="hero-card glass-hi">
+      <div class="hc-top">At a Glance</div>
+      <div class="hc-row"><div class="hcn">8.25</div><div class="hcu">CGPA</div><div class="hcd"><strong>Academic Score</strong><span>M.A. Mass Comm, AMU</span></div></div>
+      <div class="hc-row"><div class="hcn">4</div><div class="hcu">&times;</div><div class="hcd"><strong>CDS Cleared</strong><span>Qualified four times</span></div></div>
+      <div class="hc-row"><div class="hcn">3</div><div class="hcu">&times;</div><div class="hcd"><strong>SSB Attended</strong><span>Allahabad &amp; Bangalore</span></div></div>
+      <div class="hc-row"><div class="hcn">2</div><div class="hcu">+</div><div class="hcd"><strong>Internships</strong><span>IndianOil &amp; CooknKlean</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-belt">
+    <span class="mqi">Documentary Filmmaking</span><span class="mqi">Corporate Communication</span><span class="mqi">Script Writing</span><span class="mqi">Adobe Premiere Pro</span><span class="mqi">Content Strategy</span><span class="mqi">Public Relations</span><span class="mqi">UGC-NET Qualified</span><span class="mqi">Adobe InDesign</span><span class="mqi">Research &amp; Analytics</span><span class="mqi">Narration &amp; Voiceover</span><span class="mqi">CSR Branding</span><span class="mqi">Photography</span>
+    <span class="mqi">Documentary Filmmaking</span><span class="mqi">Corporate Communication</span><span class="mqi">Script Writing</span><span class="mqi">Adobe Premiere Pro</span><span class="mqi">Content Strategy</span><span class="mqi">Public Relations</span><span class="mqi">UGC-NET Qualified</span><span class="mqi">Adobe InDesign</span><span class="mqi">Research &amp; Analytics</span><span class="mqi">Narration &amp; Voiceover</span><span class="mqi">CSR Branding</span><span class="mqi">Photography</span>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="eyebrow rv">About</div>
+  <h2 class="section-title rv">A curious mind at the<br>crossroads of <em>science</em> and story.</h2>
+  <div class="about-grid">
+    <div class="body-copy">
+      <p class="rv">I grew up studying physics and mathematics, which gave me a particular way of looking at things — with structure, curiosity, and a real hunger to understand how things work from the inside out. When I walked into Mass Communication at AMU, I brought all of that with me. The combination of scientific thinking and storytelling instinct is what makes my work feel different from someone who only studied media.</p>
+      <div class="pull-q rv">
+        <blockquote>The best journalism doesn't simplify complexity. It finds the human being inside it.</blockquote>
+        <cite>What drives my work</cite>
+      </div>
+      <p class="rv">I'm completing my M.A. in Mass Communication at <strong>Aligarh Muslim University</strong>, one of India's most historically rich institutions. I've maintained a CGPA of 8.25 across three semesters, topping in Media and Human Rights in my first semester and in TV News and Current Affairs Production in my second.</p>
+      <p class="rv">I've worked inside <strong>IndianOil Corporation's Corporate Communication and CSR department</strong> in New Delhi, where I wrote scripts, designed communication materials, participated in public engagement, and contributed to a CSR branding presentation now used at their Refineries Division Conclave 2025. Before that, a graphic design internship taught me discipline, real deadlines, and the value of visual clarity.</p>
+      <div class="pull-q rv">
+        <blockquote>I don't just make content. I find the story that was already there, waiting to be told properly.</blockquote>
+        <cite>On storytelling</cite>
+      </div>
+      <p class="rv">My work spans radio documentary scripts, student newsletters, self-directed short films, and corporate communication frameworks. Each project has taught me something no classroom alone could have given me.</p>
+    </div>
+    <div class="aside-stack">
+      <div class="info-pill rv"><div class="ipl">Currently</div><div class="ipv"><strong>M.A. Mass Communication</strong><br>Aligarh Muslim University, Aligarh<br><span style="color:var(--teal)">UGC-NET Qualified — December 2025</span></div></div>
+      <div class="info-pill rv"><div class="ipl">Based in</div><div class="ipv">Etah, Uttar Pradesh, India</div></div>
+      <div class="info-pill rv"><div class="ipl">Reach me</div><div class="ipv"><a href="tel:+918755070124">+91 875 507 0124</a><br><a href="mailto:tarubbaharkhan786@gmail.com">tarubbaharkhan786@gmail.com</a></div></div>
+      <div class="info-pill rv">
+        <div class="ipl">Languages</div>
+        <div style="margin-top:.4rem">
+          <div class="lang-row"><div class="lang-head"><span class="ln">English</span><span class="lv">Fluent</span></div><div class="lang-track"><div class="lang-fill" data-w="95%"></div></div></div>
+          <div class="lang-row"><div class="lang-head"><span class="ln">Hindi</span><span class="lv">Fluent</span></div><div class="lang-track"><div class="lang-fill" data-w="95%"></div></div></div>
+          <div class="lang-row"><div class="lang-head"><span class="ln">Urdu</span><span class="lv">Intermediate</span></div><div class="lang-track"><div class="lang-fill" data-w="60%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education">
+  <div class="eyebrow rv">Education</div>
+  <h2 class="section-title rv">The foundations<br>that made the work possible.</h2>
+  <div class="edu-grid">
+    <div class="edu-card rv">
+      <div class="edu-yr">2024 — 2026 (Ongoing)</div>
+      <div class="edu-deg">M.A. Mass Communication</div>
+      <div class="edu-inst">Aligarh Muslim University, Aligarh</div>
+      <div class="edu-score">CGPA 8.25</div>
+      <div class="edu-sem">
+        <div class="edu-sem-row"><span>Semester I</span><span>SGPA 8.25</span></div>
+        <div class="edu-sem-row"><span>Semester II</span><span>SGPA 8.17</span></div>
+        <div class="edu-sem-row"><span>Semester III</span><span>SGPA 8.33</span></div>
+      </div>
+    </div>
+    <div class="edu-card rv">
+      <div class="edu-yr">2021 — 2023</div>
+      <div class="edu-deg">B.Sc. (PCM)</div>
+      <div class="edu-inst">Dr. B.R. Ambedkar University, Agra</div>
+      <div class="edu-score">58%</div>
+    </div>
+    <div class="edu-card rv">
+      <div class="edu-yr">2019</div>
+      <div class="edu-deg">Intermediate — CBSE</div>
+      <div class="edu-inst">Dr. Lokman Das Public School, Etah</div>
+      <div class="edu-score">73%</div>
+    </div>
+    <div class="edu-card rv">
+      <div class="edu-yr">2017</div>
+      <div class="edu-deg">High School — CBSE</div>
+      <div class="edu-inst">M.G. International School, Kawar, Etah</div>
+      <div class="edu-score">10 CGPA</div>
+    </div>
+    <div class="edu-card rv" style="border-color:rgba(0,194,168,.18)">
+      <div class="edu-yr">2025</div>
+      <div class="edu-deg">UGC-NET Qualified</div>
+      <div class="edu-inst">National Testing Agency — Mass Communication and Journalism</div>
+      <div class="edu-score">Ph.D. Eligible</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills">
+  <div class="eyebrow rv">Capabilities</div>
+  <h2 class="section-title rv">What I bring<br>to the table.</h2>
+  <div class="skills-grid">
+    <div class="skill-box rv"><div class="skill-box-title">Media and Production</div><div class="tags"><span class="tag">Video Editing (Premiere Pro)</span><span class="tag">Documentary Filmmaking</span><span class="tag">Photography</span><span class="tag">Script Writing</span><span class="tag">Narration and Voiceover</span><span class="tag">Adobe InDesign</span><span class="tag">Graphic Designing</span></div></div>
+    <div class="skill-box rv"><div class="skill-box-title">Communication and Content</div><div class="tags"><span class="tag">Corporate Communication</span><span class="tag">Public Relations</span><span class="tag">Content Creation</span><span class="tag">Research and Analytics</span><span class="tag">Newsletter Design</span><span class="tag">CSR Communication</span><span class="tag">B2B Content Writing</span></div></div>
+    <div class="skill-box rv"><div class="skill-box-title">Leadership and Strategy</div><div class="tags"><span class="tag">Leadership and Teamwork</span><span class="tag">Project Management</span><span class="tag">Time Management</span><span class="tag">Stakeholder Communication</span><span class="tag">Computer Proficiency</span><span class="tag">Deadline Management</span></div></div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience">
+  <div class="eyebrow rv">Experience</div>
+  <h2 class="section-title rv">Where the real<br>learning happened.</h2>
+  <div class="exp-container">
+
+    <div class="exp-item rv">
+      <div class="exp-meta">
+        <div class="exp-dot-wrap"><div class="exp-dot"></div><div class="exp-when">Jun 9 — Jul 18, 2025</div></div>
+        <div class="exp-org-name">IndianOil Corporation Ltd.</div>
+        <div class="exp-location">Scope Complex, New Delhi</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Intern — Corporate Communication, CSR and Hindi</div>
+        <div class="exp-summary">Under Ms. Sumita Singh, DGM (CC, CSR, Hindi), Refineries Division HQ. A six-week immersion into the communication machinery of one of India's largest public sector companies.</div>
+        <div class="exp-pts">
+          <div class="exp-pt">Wrote the script for the AOCN AV — a media piece on Assam Oil College of Nursing.</div>
+          <div class="exp-pt">Contributed to Bizquiz ideation: designed teasers, backdrops, and engagement material.</div>
+          <div class="exp-pt">Built a comprehensive media list for the Director (R) to streamline press outreach.</div>
+          <div class="exp-pt">Drafted a summary of MoU salient points for CSR project clarity.</div>
+          <div class="exp-pt">Designed the CSR PowerPoint now used at Refineries Division CSR Conclave 2025.</div>
+          <div class="exp-pt">Participated in Swachhta Pakhwada: performed a street play near Scope Complex.</div>
+          <div class="exp-pt">Conducted a look book analysis for IOCL's visual brand and public identity.</div>
+          <div class="exp-pt">Helped draft an SOP for Collateral Design during VIP visits.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item rv">
+      <div class="exp-meta">
+        <div class="exp-dot-wrap"><div class="exp-dot" style="background:var(--rose);box-shadow:0 0 10px var(--rose)"></div><div class="exp-when">Apr 15 — May 30, 2025</div></div>
+        <div class="exp-org-name">CooknKlean</div>
+        <div class="exp-location">Noida (Remote)</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Intern — Graphic Designing</div>
+        <div class="exp-summary">A remote internship with a cooking, cleaning, and pest control startup. Short in duration but long on lessons about creative discipline and visual communication under real business constraints.</div>
+        <div class="exp-pts exp-pts-single">
+          <div class="exp-pt">Designed social media posters and service graphics matching the brand's visual tone.</div>
+          <div class="exp-pt">Built a strong habit around creative deadlines — every deliverable shipped on time.</div>
+          <div class="exp-pt">Took part in regular team meetings for iterative feedback and design revision.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item rv">
+      <div class="exp-meta">
+        <div class="exp-dot-wrap"><div class="exp-dot" style="background:var(--gold);box-shadow:0 0 10px var(--gold)"></div><div class="exp-when">2024 — Present</div></div>
+        <div class="exp-org-name">Aligarh Muslim University</div>
+        <div class="exp-location">Aligarh, Uttar Pradesh</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Independent Filmmaker and Producer</div>
+        <div class="exp-summary">Ongoing personal and academic filmmaking, writing, and media production at AMU — including work with Filmsaaz, the university's film society.</div>
+        <div class="exp-pts">
+          <div class="exp-pt">Shot and edited the short film "Ajeeb" — a self-directed narrative debut.</div>
+          <div class="exp-pt">Directing and editing the documentary "Fun Assignment" at AMU.</div>
+          <div class="exp-pt">Produced a departmental introductory film for Mass Communication, AMU.</div>
+          <div class="exp-pt">Shot, edited, and produced content for Filmsaaz — AMU's film society.</div>
+          <div class="exp-pt">Covered the annual flower exhibition at Gulistan-e-Syed through film.</div>
+          <div class="exp-pt">Assisted two senior student films in crew roles.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<section id="work">
+  <div class="eyebrow rv">Portfolio</div>
+  <h2 class="section-title rv">Selected work across<br>film, writing, and design.</h2>
+  <div class="work-grid">
+
+    <!-- Ajeeb -->
+    <div class="wcard rv" data-vid-id="1GSgIhIsvyUoPrqOcKgfF_YFM39MvdX4u">
+      <div class="wthumb">
+        <svg viewBox="0 0 400 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="400" height="148" fill="#0c1220"/><circle cx="200" cy="74" r="160" fill="none" stroke="#00c2a8" stroke-width=".5" stroke-opacity=".08"/><circle cx="200" cy="74" r="100" fill="none" stroke="#00c2a8" stroke-width=".5" stroke-opacity=".06"/><circle cx="200" cy="74" r="20" fill="rgba(0,194,168,.08)"/></svg>
+        <div class="wthumb-label">Ajeeb &mdash; Short Film</div>
+        <iframe class="wthumb-iframe" allowfullscreen allow="autoplay" sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>
+        <button class="wthumb-play" aria-label="Play Ajeeb">
+          <div class="wplay-circle"><svg width="16" height="18" viewBox="0 0 16 18"><path d="M0 0 L16 9 L0 18 Z"/></svg></div>
+        </button>
+        <button class="wfullscreen-btn" aria-label="Fullscreen"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5V1h4M9 1h4v4M13 9v4h-4M5 13H1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="wtype">Short Film &nbsp;·&nbsp; Maiden Work &nbsp;·&nbsp; Self-directed</div>
+      <div class="wtitle">Ajeeb</div>
+      <div class="wdesc">A maiden self-directed short film exploring the quiet, strange distances that form between people who share the same space. Shot and edited entirely in Adobe Premiere Pro — a study in restraint and visual storytelling without relying on dialogue.</div>
+      <div class="wfoot"><span class="wlink">Self-directed · 2025</span><button class="play-btn" aria-label="Watch Ajeeb">Watch</button></div>
+    </div>
+
+    <!-- Dept Intro -->
+    <div class="wcard rv" data-vid-id="1qUN0h5lfidEvHRYb0DTK63BA3APYO5rU">
+      <div class="wthumb">
+        <svg viewBox="0 0 400 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="400" height="148" fill="#0c1220"/><defs><radialGradient id="rg_d"><stop offset="0%" stop-color="#5eb8ff" stop-opacity=".18"/><stop offset="100%" stop-color="#0c1220" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="74" r="140" fill="url(#rg_d)"/></svg>
+        <div class="wthumb-label">Dept. Intro Film &mdash; MCM, AMU</div>
+        <iframe class="wthumb-iframe" allowfullscreen allow="autoplay" sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>
+        <button class="wthumb-play" aria-label="Play Department Introduction">
+          <div class="wplay-circle"><svg width="16" height="18" viewBox="0 0 16 18"><path d="M0 0 L16 9 L0 18 Z"/></svg></div>
+        </button>
+        <button class="wfullscreen-btn" aria-label="Fullscreen"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5V1h4M9 1h4v4M13 9v4h-4M5 13H1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="wtype">Institutional Film &nbsp;·&nbsp; Self-produced &nbsp;·&nbsp; AMU</div>
+      <div class="wtitle">Department Introduction — Mass Communication</div>
+      <div class="wdesc">An introductory film produced for the Department of Mass Communication at AMU. Shot and edited to convey the spirit, scope, and academic character of the department — fully conceived, shot, and edited independently.</div>
+      <div class="wfoot"><span class="wlink">MCM · AMU · 2025</span><button class="play-btn" aria-label="Watch Department Introduction">Watch</button></div>
+    </div>
+
+    <!-- Fun Assignment -->
+    <div class="wcard rv" data-vid-id="1iEmjExzgIDFcYbj_V-t_dCl0hSiGMrbl">
+      <div class="wthumb">
+        <svg viewBox="0 0 400 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="400" height="148" fill="#0c1220"/><defs><radialGradient id="rg_f"><stop offset="0%" stop-color="#e8907a" stop-opacity=".16"/><stop offset="100%" stop-color="#0c1220" stop-opacity="0"/></radialGradient></defs><circle cx="120" cy="88" r="120" fill="url(#rg_f)"/></svg>
+        <div class="wthumb-label">Fun Assignment &mdash; Documentary</div>
+        <iframe class="wthumb-iframe" allowfullscreen allow="autoplay" sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>
+        <button class="wthumb-play" aria-label="Play Fun Assignment">
+          <div class="wplay-circle"><svg width="16" height="18" viewBox="0 0 16 18"><path d="M0 0 L16 9 L0 18 Z"/></svg></div>
+        </button>
+        <button class="wfullscreen-btn" aria-label="Fullscreen"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5V1h4M9 1h4v4M13 9v4h-4M5 13H1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="wtype">Documentary &nbsp;·&nbsp; Assignment Film &nbsp;·&nbsp; AMU</div>
+      <div class="wtitle">Fun Assignment</div>
+      <div class="wdesc">An assignment documentary made with real curiosity and energy. The film captures a genuine slice of campus life at AMU, leaning into the unscripted and honest moments that give documentary filmmaking its actual power.</div>
+      <div class="wfoot"><span class="wlink">AMU · Documentary</span><button class="play-btn" aria-label="Watch Fun Assignment">Watch</button></div>
+    </div>
+
+    <!-- Types of Shots -->
+    <div class="wcard rv" data-vid-id="1BLWp19BUoBVvp-hGbr8RfMkaazFaHnvd">
+      <div class="wthumb">
+        <svg viewBox="0 0 400 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="400" height="148" fill="#0c1220"/><circle cx="200" cy="74" r="40" fill="none" stroke="#00c2a8" stroke-opacity=".12" stroke-width="1"/><circle cx="200" cy="74" r="65" fill="none" stroke="#00c2a8" stroke-opacity=".07" stroke-width="1"/><circle cx="200" cy="74" r="95" fill="none" stroke="#00c2a8" stroke-opacity=".04" stroke-width="1"/></svg>
+        <div class="wthumb-label">Types of Shots &mdash; Cinematography</div>
+        <iframe class="wthumb-iframe" allowfullscreen allow="autoplay" sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>
+        <button class="wthumb-play" aria-label="Play Types of Shots">
+          <div class="wplay-circle"><svg width="16" height="18" viewBox="0 0 16 18"><path d="M0 0 L16 9 L0 18 Z"/></svg></div>
+        </button>
+        <button class="wfullscreen-btn" aria-label="Fullscreen"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5V1h4M9 1h4v4M13 9v4h-4M5 13H1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="wtype">Assignment Film &nbsp;·&nbsp; Cinematography</div>
+      <div class="wtitle">Types of Shots</div>
+      <div class="wdesc">A filmmaking assignment demonstrating command of cinematographic vocabulary — wide shots, close-ups, over-the-shoulder, POV, cutaways — assembled into a coherent visual essay. Shot and edited in Adobe Premiere Pro.</div>
+      <div class="wfoot"><span class="wlink">Cinematography · AMU</span><button class="play-btn" aria-label="Watch Types of Shots">Watch</button></div>
+    </div>
+
+    <!-- Custodians of Legacy — no video, document only -->
+    <div class="wcard rv">
+      <div class="wthumb">
+        <svg viewBox="0 0 400 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="400" height="148" fill="#0c1220"/><defs><radialGradient id="rg_c"><stop offset="0%" stop-color="#d4af6a" stop-opacity=".18"/><stop offset="100%" stop-color="#0c1220" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="74" r="160" fill="url(#rg_c)"/><path d="M100 148 Q200 20 300 148" stroke="#d4af6a" stroke-opacity=".1" stroke-width="1" fill="none"/></svg>
+        <div class="wthumb-label">Custodians of Legacy &mdash; Radio Script</div>
+      </div>
+      <div class="wtype">Radio Documentary &nbsp;·&nbsp; Script &nbsp;·&nbsp; AMU Heritage Cell</div>
+      <div class="wtitle">Custodians of Legacy</div>
+      <div class="wdesc">A radio documentary script about AMU's Heritage Cell — the people preserving one of India's most architecturally layered campuses. Featured Prof. Mohammad Farhan Fazli, Convener. Explores how traditional conservation meets modern archiving.</div>
+      <div class="wfoot"><a href="https://drive.google.com/file/d/1mva35yNFp_WCoMRnGs1XmYQDhc7hQcic/view" class="wlink" target="_blank" rel="noopener noreferrer">View Document &rarr;</a></div>
+    </div>
+
+    <!-- CSR Presentation — no video, slides only -->
+    <div class="wcard rv">
+      <div class="wthumb">
+        <svg viewBox="0 0 400 148" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><rect width="400" height="148" fill="#0c1220"/><defs><radialGradient id="rg_p"><stop offset="0%" stop-color="#5eb8ff" stop-opacity=".14"/><stop offset="100%" stop-color="#0c1220" stop-opacity="0"/></radialGradient></defs><circle cx="240" cy="59" r="130" fill="url(#rg_p)"/><rect x="120" y="40" width="160" height="68" rx="5" fill="none" stroke="#5eb8ff" stroke-opacity=".12" stroke-width="1"/><rect x="130" y="52" width="80" height="5" rx="2" fill="#5eb8ff" fill-opacity=".14"/></svg>
+        <div class="wthumb-label">CSR Branding — IndianOil</div>
+      </div>
+      <div class="wtype">Corporate Presentation &nbsp;·&nbsp; IndianOil &nbsp;·&nbsp; 2025</div>
+      <div class="wtitle">The Brand Superpower — CSR</div>
+      <div class="wdesc">A full corporate presentation on CSR communication strategy for IndianOil's Refineries Division CSR Conclave 2025 — covering authentic storytelling, stakeholder engagement, impact measurement, and the philosophy of branding with genuine social purpose.</div>
+      <div class="wfoot"><a href="https://drive.google.com/file/d/1kpDBGwpuCzS7Nr86rma8D1Eu5fQay3aK/view" class="wlink" target="_blank" rel="noopener noreferrer">View Slides &rarr;</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FILMSAAZ ═══ -->
+<section id="filmsaaz">
+  <div class="eyebrow rv">Filmsaaz</div>
+  <h2 class="section-title rv">Films made for<br><em>AMU's film society.</em></h2>
+
+  <div class="fsz-header-row">
+    <div class="fsz-header-left rv">
+      <div class="fsz-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="var(--rose)"><circle cx="4" cy="4" r="4"/></svg>Film Society &nbsp;·&nbsp; AMU</div>
+      <p class="fsz-about-short">These short films were <strong>shot, edited, or produced by me</strong> as part of the Filmsaaz collective at AMU. All shot in vertical format. Scroll through and tap any card to play it right here.</p>
+    </div>
+    <div class="fsz-hint-pill rv">
+      <div class="dot-live"></div>
+      <span>Tap to play</span>
+    </div>
+  </div>
+
+  <!-- Now-playing bar -->
+  <div class="fsz-now-bar rv" id="fszNowBar">
+    <!-- populated by JS -->
+  </div>
+
+  <!-- Horizontal scroll strip of vertical cards -->
+  <div class="fsz-scroll-outer rv">
+    <div class="fsz-scroll-track" id="fszTrack">
+      <!-- cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CERTIFICATIONS ═══ -->
+<section id="certifications">
+  <div class="eyebrow rv">Credentials</div>
+  <h2 class="section-title rv">Certifications and<br>recognition.</h2>
+  <div class="cert-grid">
+    <div class="cert-card rv"><div class="cert-badge">National · 2025</div><div class="cert-name">UGC-NET — Ph.D. Eligibility</div><div class="cert-detail">Mass Communication and Journalism, December 2025. National Testing Agency. Roll No. UP020103252. Applied while still completing my Masters.</div></div>
+    <div class="cert-card rv"><div class="cert-badge">Corporate · 2025</div><div class="cert-name">Internship Certificate — IndianOil Corp.</div><div class="cert-detail">Issued by Manager (L&D), Refineries Division, New Delhi. June 9 to July 18, 2025. Corporate Communication Department under DGM Sumita Singh.</div></div>
+    <div class="cert-card rv"><div class="cert-badge">Technical</div><div class="cert-name">Advance Diploma in Computer Application</div><div class="cert-detail">Includes Course on Computer Concepts (CCC). Covers computing fundamentals, office productivity, and digital literacy across software environments.</div></div>
+    <div class="cert-card rv"><div class="cert-badge">Academic · Sem III</div><div class="cert-name">M.A. Semester III — SGPA 8.33</div><div class="cert-detail">AMU, Odd Semester 2025-26. Upward academic trajectory through the third semester of the M.A. programme, bringing the CGPA to 8.25.</div></div>
+    <div class="cert-card rv"><div class="cert-badge">Academic · Sem I &amp; II</div><div class="cert-name">M.A. Sem I (8.25) and Sem II (8.17)</div><div class="cert-detail">A+ in Media and Human Rights (Sem I) and TV News and Current Affairs Production (Sem II). Consistent A grades across all papers in both semesters.</div></div>
+    <div class="cert-card rv"><div class="cert-badge">Defence</div><div class="cert-name">CDS — Cleared 4 Times</div><div class="cert-detail">Attended SSB interviews at 14 SSB Allahabad and 17 SSB Bangalore. Demonstrated leadership, group communication, and psychological resilience through the full selection process.</div></div>
+  </div>
+</section>
+
+<!-- ═══ SSB ═══ -->
+<section id="extra">
+  <div class="eyebrow rv">Beyond the Classroom</div>
+  <div class="ssb-wrap glass rv">
+    <div class="ssb-l">
+      <div class="ssb-big">4&times;</div>
+      <div class="ssb-lbl">CDS Exam Cleared</div>
+      <div class="ssb-stats">
+        <div class="ssb-s"><div class="ssb-sn">3&times;</div><div class="ssb-sl">SSB Attended</div></div>
+        <div class="ssb-s"><div class="ssb-sn">2</div><div class="ssb-sl">Boards faced</div></div>
+      </div>
+    </div>
+    <div class="ssb-r">
+      <div class="eyebrow" style="margin-bottom:1rem">The SSB Experience</div>
+      <h3>Pressure as a teacher.</h3>
+      <p>I've cleared the Combined Defence Services examination four times and sat before the Services Selection Board three times — at 14 SSB Allahabad and at 17 SSB Bangalore. The selection process runs through psychological tests, group discussions, narration tasks, and individual and group leadership exercises.</p>
+      <p>What the SSB gives you isn't something you can frame and put on a wall. It's a kind of clarity about who you are when things are hard — when you're being observed, when the group is pulling in different directions, when the right answer isn't written anywhere. I carry everything I learned through that process into every professional setting I walk into. It shows in how I communicate, how I lead, and how I hold up under real pressure.</p>
+      <div class="pull-q" style="margin-top:2rem;margin-bottom:0">
+        <blockquote>The SSB doesn't test what you know. It tests who you are when it is difficult.</blockquote>
+        <cite>A lesson that stayed</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="eyebrow rv" style="justify-content:center">Get in Touch</div>
+  <h2 class="contact-h rv">Let's make<br><span class="grd">something real.</span></h2>
+  <p class="contact-sub rv">Open to opportunities in media production, corporate communication, content writing, and documentary work. If the brief is genuinely interesting, I want to hear it.</p>
+  <div class="contact-row rv">
+    <a href="tel:+918755070124" class="ccard"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M12.5 10.2c-.8-.8-1.7-.8-2.5 0-.6.6-1.2 1.2-1.8.5C7.5 10.1 6.4 9.5 5.4 8.5S4 5.5 4.3 4.8c.7-.6 1.3-1.2.5-2C4.1 2 3.2.8 2.4.9 1.1 1 .5 2.4.5 3.5c0 5.6 6.4 12 12 12 1.1 0 2.5-.6 2.6-1.9.1-.8-1.1-1.7-2.6-3.4z" stroke="currentColor" stroke-width="1.3"/></svg>+91 875 507 0124</a>
+    <a href="mailto:tarubbaharkhan786@gmail.com" class="ccard"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 4l7 5 7-5" stroke="currentColor" stroke-width="1.3"/></svg>tarubbaharkhan786@gmail.com</a>
+    <a href="https://drive.google.com/file/d/1DHupALv8HRMO_EKw3LC017lHi8r0ExCk/view" class="ccard" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M12 14H4a1 1 0 01-1-1V3a1 1 0 011-1h5l4 4v8a1 1 0 01-1 1z" stroke="currentColor" stroke-width="1.3"/><path d="M9 2v4h4M5 9h6M5 12h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Download CV</a>
+    <a href="https://drive.google.com/drive/folders/1kBeabuuCxPiPxhKOah4NfqDvPgWWztob" class="ccard" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M5.5 14H3a2 2 0 01-2-2V4a2 2 0 012-2h7l4 4v6a2 2 0 01-2 2h-2" stroke="currentColor" stroke-width="1.3"/><path d="M9 2v4h4" stroke="currentColor" stroke-width="1.3"/></svg>Full Portfolio Drive</a>
+  </div>
+</section>
+
+<footer>
+  <span class="ft">Tarub Bahar <span class="dot">&middot;</span> Mass Communication Professional <span class="dot">&middot;</span> AMU Aligarh</span>
+  <span class="ft">India <span class="dot">&middot;</span> 2026</span>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* ── SECURITY ── */
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C','K'].includes(e.key))||(e.ctrlKey&&e.key==='U')){e.preventDefault()}
+});
+var _dt=setInterval(function(){
+  if(window.outerWidth-window.innerWidth>200||window.outerHeight-window.innerHeight>200){
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#fff;background:#07090e;font-size:.9rem;letter-spacing:.06em">Please close developer tools to continue.</div>';
+    clearInterval(_dt);
+  }
+},900);
+
+/* ── ALLOWLIST ── */
+var ALLOWED={
+  '1GSgIhIsvyUoPrqOcKgfF_YFM39MvdX4u':true,
+  '1qUN0h5lfidEvHRYb0DTK63BA3APYO5rU':true,
+  '1iEmjExzgIDFcYbj_V-t_dCl0hSiGMrbl':true,
+  '1BLWp19BUoBVvp-hGbr8RfMkaazFaHnvd':true,
+  '10OpNMfzsxdX8_mwV3yCgnaxCFcY63Nrp':true,
+  '1Y32yoqg2JDS8u6oubNQEMcaYyRu3v_GG':true,
+  '15mRtQU1_K2chSh0kg4Oy-KhxyYpY5wlO':true,
+  '1fjKldPvcLd210Y0Hm8fpAVaoCdlgefKX':true,
+  '1rcy3-zmmtye9zuQVchB3YQ5xQwcXaLzu':true
+};
+function sanitize(id){return /^[A-Za-z0-9_\-]{10,60}$/.test(id)?id:null}
+function escHTML(s){return String(s).replace(/[<>&"']/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#x27;'}[c]}).slice(0,100)}
+
+/* ── PLATFORM DETECTION ── */
+var IS_TOUCH=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+var IS_MOUSE=window.matchMedia('(pointer:fine)').matches;
+
+/* ── CURSOR (desktop / mouse only) ── */
+var dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+if(IS_MOUSE&&!IS_TOUCH&&dot&&ring){
+  var mx=0,my=0,rx=0,ry=0,cursorStarted=false,cursorMoving=false,cursorFrame=0;
+  function placeCursor(el,x,y){el.style.transform='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%)'}
+  function cursorTick(){
+    rx+=(mx-rx)*.18;ry+=(my-ry)*.18;
+    placeCursor(ring,rx,ry);
+    if(Math.abs(mx-rx)+Math.abs(my-ry)>.25){
+      cursorFrame=requestAnimationFrame(cursorTick);
+    } else {
+      cursorMoving=false;
+      cursorFrame=0;
+    }
+  }
+  function wakeCursor(){
+    if(!cursorStarted){
+      rx=mx;ry=my;cursorStarted=true;
+      dot.style.opacity='1';ring.style.opacity='1';
+    }
+    if(!cursorMoving){
+      cursorMoving=true;
+      cursorFrame=requestAnimationFrame(cursorTick);
+    }
+  }
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    placeCursor(dot,mx,my);
+    wakeCursor();
+  },{passive:true});
+  document.querySelectorAll('a,button,[role="button"]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.style.width='44px';ring.style.height='44px';ring.style.opacity='.24'});
+    el.addEventListener('mouseleave',function(){ring.style.width='30px';ring.style.height='30px';ring.style.opacity='1'});
+  });
+} else {
+  if(dot)dot.style.display='none';
+  if(ring)ring.style.display='none';
+}
+
+/* ── NEON TAP RING (touch / phone only) ── */
+var tapRingEl=document.getElementById('tapRing');
+if(IS_TOUCH&&tapRingEl){
+  document.addEventListener('touchstart',function(e){
+    var t=e.touches[0];
+    if(!t)return;
+    tapRingEl.style.left=t.clientX+'px';
+    tapRingEl.style.top=t.clientY+'px';
+    tapRingEl.classList.remove('pop');
+    /* force reflow so animation restarts */
+    void tapRingEl.offsetWidth;
+    tapRingEl.classList.add('pop');
+  },{passive:true});
+}
+
+/* ── SNOWFLAKE CANVAS — cinematic glass-window depth-of-field snow ── */
+(function(){
+  var canvas=document.getElementById('snow-canvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  if(!ctx)return;
+  var W=0,H=0;
+  var flakes=[];
+  var FLAKE_COUNT=IS_TOUCH?24:42;
+  var mouse={x:-999,y:-999,active:false};
+  var REPEL_RADIUS=70;
+  var REPEL_STRENGTH=1.1;
+  var globalFade=1;
+  var REDUCE_MOTION=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize);
+
+  /* Each flake carries a "depth" 0 (far) – 1 (near).
+     Far flakes: smaller, dimmer, more blurred, slower, less drift.
+     Near flakes: larger, brighter, sharper, faster, more drift. */
+  function Flake(){this.reset(true)}
+  Flake.prototype.reset=function(initial){
+    this.depth=Math.random();                       /* 0 = far, 1 = near */
+    this.x=Math.random()*W;
+    this.y=initial?Math.random()*H:-20;
+    this.r=1+this.depth*3.4;                        /* size 1–4.4 */
+    this.blur=0;                                      /* frame-time filters removed for smoother scroll */
+    this.baseOpacity=0.10+this.depth*0.42;           /* far = dimmer */
+    this.speed=0.12+this.depth*0.55;                 /* far = slower */
+    this.driftAmp=(0.25+this.depth*0.65);            /* near drifts more */
+    this.windPhase=Math.random()*Math.PI*2;
+    this.windSpeed=0.0015+Math.random()*0.0025;
+    this.angle=Math.random()*Math.PI*2;
+    this.spin=(Math.random()*0.012-0.006)*(0.4+this.depth);
+    this.glow=Math.random()<0.025;                   /* keep rare highlights without taxing every frame */
+    this.vx=0;
+    this.vy=this.speed;
+  };
+
+  for(var i=0;i<FLAKE_COUNT;i++)flakes.push(new Flake());
+
+  /* Interaction — mouse on desktop, touch on mobile.
+     Near flakes (closer to viewer) react more than far ones. */
+  function setMouse(x,y){mouse.x=x;mouse.y=y;mouse.active=true}
+  function clearMouse(){mouse.active=false;mouse.x=-999;mouse.y=-999}
+
+  if(IS_MOUSE){
+    document.addEventListener('mousemove',function(e){setMouse(e.clientX,e.clientY)},{passive:true});
+  }
+  if(IS_TOUCH){
+    document.addEventListener('touchend',clearMouse,{passive:true});
+  }
+
+  function drawStar(x,y,r,angle){
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.rotate(angle);
+    for(var a=0;a<3;a++){
+      ctx.beginPath();
+      ctx.moveTo(0,-r);
+      ctx.lineTo(0,r);
+      ctx.stroke();
+      ctx.rotate(Math.PI/3);
+    }
+    for(var b=0;b<6;b++){
+      ctx.beginPath();
+      ctx.arc(0,-r,r*.22,0,Math.PI*2);
+      ctx.fill();
+      ctx.rotate(Math.PI/3);
+    }
+    ctx.restore();
+  }
+
+  /* Global fade — snow gradually disappears as the user
+     approaches the bottom of the page, like leaving the
+     visible band of a tall glass window. */
+  function updateGlobalFade(){
+    var doc=document.documentElement;
+    var maxScroll=doc.scrollHeight-window.innerHeight;
+    if(maxScroll<=0){globalFade=1;return;}
+    var progress=(window.scrollY||doc.scrollTop)/maxScroll;
+    if(progress<0.80){
+      globalFade=1;
+    } else {
+      globalFade=Math.max(0,1-(progress-0.80)/0.20);
+    }
+  }
+  var fadePending=false;
+  function requestGlobalFade(){
+    if(fadePending)return;
+    fadePending=true;
+    requestAnimationFrame(function(){
+      fadePending=false;
+      updateGlobalFade();
+    });
+  }
+  window.addEventListener('scroll',requestGlobalFade,{passive:true});
+  updateGlobalFade();
+
+  var snowRunning=false;
+  function step(){
+    if(document.hidden){
+      snowRunning=false;
+      return;
+    }
+    ctx.clearRect(0,0,W,H);
+
+    if(globalFade>0.005){
+      for(var i=0;i<flakes.length;i++){
+        var f=flakes[i];
+
+        /* gentle wind — horizontal drifting sine wave, depth-scaled */
+        f.windPhase+=f.windSpeed;
+        var wind=Math.sin(f.windPhase)*0.35*f.driftAmp;
+
+        /* mouse / touch repulsion — nearer flakes react more */
+        if(mouse.active){
+          var dx=f.x-mouse.x,dy=f.y-mouse.y;
+          var dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<REPEL_RADIUS&&dist>0){
+            var force=(REPEL_RADIUS-dist)/REPEL_RADIUS*REPEL_STRENGTH*(0.3+f.depth*0.7);
+            f.vx+=dx/dist*force*.35;
+            f.vy+=dy/dist*force*.35;
+          }
+        }
+
+        /* settle back toward natural fall + wind drift */
+        f.vx+=(wind-f.vx)*.025;
+        f.vy+=(f.speed-f.vy)*.025;
+        f.x+=f.vx;
+        f.y+=f.vy;
+        f.angle+=f.spin;
+
+        /* wrap horizontally, reset vertically */
+        if(f.x<-20)f.x=W+10;
+        if(f.x>W+20)f.x=-10;
+        if(f.y>H+15)f.reset(false);
+
+        var opacity=f.baseOpacity*globalFade;
+        if(opacity<=0.008)continue;
+
+        ctx.save();
+        if(f.glow){
+          ctx.shadowColor='rgba(180,225,255,'+(opacity*0.85).toFixed(3)+')';
+          ctx.shadowBlur=f.r*4;
+        } else {
+          ctx.shadowBlur=0;
+        }
+        ctx.strokeStyle='rgba(214,236,255,'+opacity.toFixed(3)+')';
+        ctx.fillStyle='rgba(214,236,255,'+opacity.toFixed(3)+')';
+        ctx.lineWidth=Math.max(.4,f.r*.3);
+        drawStar(f.x,f.y,f.r*2,f.angle);
+        ctx.restore();
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden&&!REDUCE_MOTION&&!snowRunning){
+      snowRunning=true;
+      requestAnimationFrame(step);
+    }
+  });
+
+  if(!REDUCE_MOTION){
+    snowRunning=true;
+    step();
+  } else {
+    /* draw a single static, very faint frame and stop */
+    for(var j=0;j<flakes.length;j++){
+      var ff=flakes[j];
+      var op=ff.baseOpacity*0.6;
+      ctx.save();
+      ctx.strokeStyle='rgba(214,236,255,'+op.toFixed(3)+')';
+      ctx.fillStyle='rgba(214,236,255,'+op.toFixed(3)+')';
+      ctx.lineWidth=Math.max(.4,ff.r*.3);
+      drawStar(ff.x,ff.y,ff.r*2,ff.angle);
+      ctx.restore();
+    }
+  }
+})();
+
+/* ── NAV ── */
+var nav=document.getElementById('mainNav');
+var navTick=false;
+function updateNav(){
+  navTick=false;
+  if(nav)nav.classList.toggle('nav-compact',window.scrollY>60);
+}
+window.addEventListener('scroll',function(){
+  if(!navTick){
+    navTick=true;
+    requestAnimationFrame(updateNav);
+  }
+},{passive:true});
+updateNav();
+var ham=document.getElementById('navHam'),nl=document.getElementById('navLinks'),mOpen=false;
+if(ham)ham.addEventListener('click',function(){
+  mOpen=!mOpen;
+  nl.style.cssText=mOpen?'display:flex;flex-direction:column;position:fixed;top:52px;left:0;right:0;background:rgba(7,9,14,.97);padding:2rem;gap:1.4rem;z-index:299;border-bottom:1px solid rgba(255,255,255,.08)':'display:none';
+});
+
+/* ── REVEAL ── */
+var rvEls=document.querySelectorAll('.rv,.rv-l,.rv-r');
+var rvObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('vis')},i*48);rvObs.unobserve(e.target)}});
+},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
+rvEls.forEach(function(el){rvObs.observe(el)});
+
+/* ── LANG BARS ── */
+var lObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.querySelectorAll('.lang-fill').forEach(function(f){f.style.width=f.dataset.w})})},{threshold:.3});
+document.querySelectorAll('.aside-stack').forEach(function(el){lObs.observe(el)});
+
+/* ── PORTFOLIO — in-card play/pause + fullscreen modal ── */
+var modal=document.getElementById('vModal'),vmC=document.getElementById('vmContent'),vmCl=document.getElementById('vmClose'),vmT=document.getElementById('vmTitle');
+
+function openFullscreenModal(rawId,title){
+  var id=sanitize(rawId);if(!id||!ALLOWED[id])return;
+  vmT.textContent=escHTML(title);
+  var iframe=document.createElement('iframe');
+  iframe.setAttribute('src','https://drive.google.com/file/d/'+id+'/preview?autoplay=1');
+  iframe.setAttribute('allowfullscreen','');iframe.setAttribute('allow','autoplay; fullscreen');
+  iframe.setAttribute('sandbox','allow-scripts allow-same-origin allow-presentation allow-popups');
+  /* portrait modal for vertical videos */
+  iframe.style.cssText='width:100%;aspect-ratio:9/16;max-height:88vh;display:block;border:none;margin:0 auto';
+  vmC.innerHTML='';vmC.appendChild(iframe);
+  modal.classList.add('open');document.body.style.overflow='hidden';
+}
+function closeFullscreenModal(){modal.classList.remove('open');vmC.innerHTML='';document.body.style.overflow=''}
+vmCl.addEventListener('click',closeFullscreenModal);
+modal.addEventListener('click',function(e){if(e.target===modal)closeFullscreenModal()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFullscreenModal()});
+
+/* In-card playback for work cards with data-vid-id */
+var WORK_ALLOWED={
+  '1GSgIhIsvyUoPrqOcKgfF_YFM39MvdX4u':true,
+  '1qUN0h5lfidEvHRYb0DTK63BA3APYO5rU':true,
+  '1iEmjExzgIDFcYbj_V-t_dCl0hSiGMrbl':true,
+  '1BLWp19BUoBVvp-hGbr8RfMkaazFaHnvd':true
+};
+var currentlyPlayingCard=null;
+
+function stopCard(card){
+  if(!card)return;
+  card.classList.remove('playing');
+  var iframe=card.querySelector('.wthumb-iframe');
+  if(iframe){iframe.removeAttribute('src');}
+  var btn=card.querySelector('.wthumb-play');
+  if(btn){
+    btn.querySelector('.wplay-circle').innerHTML='<svg width="16" height="18" viewBox="0 0 16 18"><path d="M0 0 L16 9 L0 18 Z"/></svg>';
+    btn.setAttribute('aria-label','Play');
+  }
+  if(currentlyPlayingCard===card)currentlyPlayingCard=null;
+}
+
+function playCard(card){
+  var id=sanitize(card.dataset.vidId);
+  if(!id||!WORK_ALLOWED[id])return;
+  /* stop any other playing card — only one at a time */
+  if(currentlyPlayingCard&&currentlyPlayingCard!==card){
+    stopCard(currentlyPlayingCard);
+  }
+  var iframe=card.querySelector('.wthumb-iframe');
+  if(iframe){
+    iframe.setAttribute('src','https://drive.google.com/file/d/'+id+'/preview?autoplay=1');
+  }
+  card.classList.add('playing');
+  var btn=card.querySelector('.wthumb-play');
+  if(btn){
+    btn.querySelector('.wplay-circle').innerHTML='<svg width="14" height="16" viewBox="0 0 14 16"><rect x="0" y="0" width="4" height="16" rx="1"/><rect x="10" y="0" width="4" height="16" rx="1"/></svg>';
+    btn.setAttribute('aria-label','Pause');
+  }
+  currentlyPlayingCard=card;
+}
+
+document.querySelectorAll('.wcard[data-vid-id]').forEach(function(card){
+  var playBtn=card.querySelector('.wthumb-play');
+  var watchBtn=card.querySelector('.play-btn');
+  var fsBtn=card.querySelector('.wfullscreen-btn');
+
+  /* play/pause toggle on play icon */
+  if(playBtn){
+    playBtn.addEventListener('click',function(e){
+      e.preventDefault();e.stopPropagation();
+      if(card.classList.contains('playing')){
+        stopCard(card);
+      } else {
+        playCard(card);
+      }
+    });
+  }
+
+  /* watch button — also toggles in-card playback (no redirect) */
+  if(watchBtn){
+    watchBtn.addEventListener('click',function(e){
+      e.preventDefault();e.stopPropagation();
+      if(card.classList.contains('playing')){
+        stopCard(card);
+      } else {
+        playCard(card);
+      }
+    });
+  }
+
+  /* fullscreen button */
+  if(fsBtn){
+    fsBtn.addEventListener('click',function(e){
+      e.preventDefault();e.stopPropagation();
+      var id=card.dataset.vidId;
+      var title=card.querySelector('.wtitle').textContent;
+      openFullscreenModal(id,title);
+    });
+  }
+
+  /* clicking thumbnail area when not playing also starts playback */
+  var thumb=card.querySelector('.wthumb');
+  if(thumb){
+    thumb.addEventListener('click',function(e){
+      if(!card.classList.contains('playing')){
+        playCard(card);
+      }
+    });
+  }
+});
+
+/* ── FILMSAAZ — vertical cards, click-to-play ── */
+/* Only real shot videos — animated posts removed */
+var FSZ_VIDEOS=[
+  {id:'10OpNMfzsxdX8_mwV3yCgnaxCFcY63Nrp',title:'Get Ready for Filmsaaz',sub:'Shot &amp; edited · Filmsaaz'},
+  {id:'1Y32yoqg2JDS8u6oubNQEMcaYyRu3v_GG',title:'No Need to Talk',sub:'13th Filmsaaz · Team video'},
+  {id:'15mRtQU1_K2chSh0kg4Oy-KhxyYpY5wlO',title:'FOMO is Real',sub:'Shot by me · Filmsaaz'},
+  {id:'1fjKldPvcLd210Y0Hm8fpAVaoCdlgefKX',title:'Filmsaaz Main Film',sub:'Team video · Filmsaaz'},
+  {id:'1rcy3-zmmtye9zuQVchB3YQ5xQwcXaLzu',title:'No Zoom Upbeat',sub:'Team video · Filmsaaz'}
+];
+
+var fszTrack=document.getElementById('fszTrack');
+var fszNowBar=document.getElementById('fszNowBar');
+var fszCards=[];
+var fszActiveIdx=-1;
+var fszScrollTimer=null;
+var fszIsDragging=false;
+var fszDragStartX=0;
+var fszDragScrollLeft=0;
+var fszDragFrame=0;
+var fszDragPageX=0;
+
+function fszBuildCards(){
+  FSZ_VIDEOS.forEach(function(v,i){
+    var id=sanitize(v.id);
+    if(!id||!ALLOWED[id])return;
+
+    var card=document.createElement('div');
+    card.className='fsz-vcard';
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label','Play: '+escHTML(v.title));
+    card.dataset.id=id;
+    card.dataset.title=v.title;
+    card.dataset.idx=i;
+
+    /* iframe — loads preview (paused) initially, pointer-events off */
+    card.dataset.loaded='1';
+    var iframe=document.createElement('iframe');
+    iframe.setAttribute('src','https://drive.google.com/file/d/'+id+'/preview');
+    iframe.setAttribute('loading','lazy');
+    iframe.setAttribute('allow','autoplay; fullscreen; encrypted-media');
+    iframe.setAttribute('allowfullscreen','');
+    iframe.dataset.id=id;
+    card.appendChild(iframe);
+
+    /* overlay */
+    var ov=document.createElement('div');ov.className='fsz-vcard-overlay';
+    ov.innerHTML='<div class="fsz-vcard-num">0'+(i+1)+'</div>'
+      +'<div class="fsz-vcard-title">'+escHTML(v.title)+'</div>'
+      +'<div class="fsz-vcard-sub">'+v.sub+'</div>';
+    card.appendChild(ov);
+
+    /* play icon */
+    var pi=document.createElement('button');pi.className='fsz-vcard-play';pi.type='button';pi.setAttribute('aria-label','Play '+escHTML(v.title));
+    pi.innerHTML='<svg width="16" height="18" viewBox="0 0 16 18"><path d="M0 0 L16 9 L0 18 Z"/></svg>';
+    card.appendChild(pi);
+
+    /* click/tap → activate */
+    card.addEventListener('click',function(){fszActivate(i)});
+    pi.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();fszActivate(i)});
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fszActivate(i)}});
+
+    fszTrack.appendChild(card);
+    fszCards.push(card);
+  });
+}
+
+function fszActivate(idx){
+  /* deactivate previous */
+  if(fszActiveIdx>=0&&fszCards[fszActiveIdx]){
+    var prev=fszCards[fszActiveIdx];
+    prev.classList.remove('active-card');
+    var pIframe=prev.querySelector('iframe');
+    if(pIframe){
+      pIframe.setAttribute('src','https://drive.google.com/file/d/'+prev.dataset.id+'/preview');
+      pIframe.style.pointerEvents='none';
+    }
+    prev.dataset.loaded='1';
+  }
+
+  fszActiveIdx=idx;
+  var card=fszCards[idx];
+  if(!card)return;
+  card.classList.add('active-card');
+
+  /* reload iframe WITH autoplay on click */
+  var iframe=card.querySelector('iframe');
+  var id=sanitize(card.dataset.id);
+  if(!id||!ALLOWED[id])return;
+  if(iframe){
+    iframe.setAttribute('src','https://drive.google.com/file/d/'+id+'/preview?autoplay=1&t='+(Date.now()));
+    iframe.style.pointerEvents='auto';
+    card.dataset.loaded='1';
+  }
+
+  /* update now-bar */
+  fszNowBar.innerHTML='<div class="dot-live"></div><span class="now-title">Now Playing: '+escHTML(card.dataset.title)+'</span>';
+
+  /* scroll card into comfortable view */
+  card.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+/* Intersection Observer — highlight card in view but don't autoplay */
+function fszSetupObserver(){
+  var opts={root:fszTrack,threshold:0.65};
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      /* just visually mark which card is centred — no autoplay */
+      if(e.isIntersecting){
+        e.target.style.borderColor='rgba(0,194,168,.35)';
+      } else {
+        if(!e.target.classList.contains('active-card')){
+          e.target.style.borderColor='';
+        }
+      }
+    });
+  },opts);
+  fszCards.forEach(function(c){obs.observe(c)});
+}
+
+/* Mouse-drag scrolling for desktop */
+function fszSetupDrag(){
+  fszTrack.addEventListener('mousedown',function(e){
+    fszIsDragging=true;
+    fszDragStartX=e.pageX-fszTrack.offsetLeft;
+    fszDragScrollLeft=fszTrack.scrollLeft;
+    fszTrack.classList.add('dragging');
+  });
+  document.addEventListener('mouseup',function(){
+    fszIsDragging=false;
+    fszTrack.classList.remove('dragging');
+  });
+  function applyFszDrag(){
+    fszDragFrame=0;
+    if(!fszIsDragging)return;
+    var x=fszDragPageX-fszTrack.offsetLeft;
+    var walk=(x-fszDragStartX)*1.4;
+    fszTrack.scrollLeft=fszDragScrollLeft-walk;
+  }
+  fszTrack.addEventListener('mousemove',function(e){
+    if(!fszIsDragging)return;
+    e.preventDefault();
+    fszDragPageX=e.pageX;
+    if(!fszDragFrame)fszDragFrame=requestAnimationFrame(applyFszDrag);
+  });
+}
+
+fszBuildCards();
+fszSetupObserver();
+fszSetupDrag();
+
+/* ── STAGGER ── */
+['work-grid','edu-grid','cert-grid','skills-grid'].forEach(function(c){
+  var g=document.querySelector('.'+c);
+  if(!g)return;
+  g.querySelectorAll(':scope > *').forEach(function(el,i){el.style.transitionDelay=(i*.055)+'s'});
+});
+
+})();
+</script>
+</body>
+</html>
